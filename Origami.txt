@@ -1,0 +1,46 @@
+#include <string>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+vector<int> paper;
+
+void aaa(int n){
+    if(n == 1)
+        paper.push_back(0);
+    else if(n==2){
+        paper.push_back(0);
+        paper.push_back(0);
+        paper.push_back(1);
+    }
+    else{
+        paper.push_back(0);
+        paper.push_back(0);
+        paper.push_back(1);
+        
+        for(int i=3; i<=n;i++){
+            vector<int> next_paper(paper);
+
+			next_paper.assign(paper.begin(), paper.end());
+			next_paper.push_back(0); // 가운데 0
+
+			int n = (paper.size() / 2);
+			paper.at(n)= 1;
+
+			for (int j = 0; j < paper.size(); j++)
+				next_paper.push_back(paper[j]);
+
+			paper.clear();
+			paper.assign(next_paper.begin(), next_paper.end());
+			next_paper.clear();
+        }
+    }
+        
+}
+
+
+vector<int> solution(int n) {
+    aaa(n);
+    
+    return paper;
+}

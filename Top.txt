@@ -1,0 +1,29 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(vector<int> heights) {
+    vector<int> answer;
+   
+    for(int i=heights.size()-1; i>=0; i--){
+        bool count = false;
+        for(int j=i-1; j>=0; j--){
+            if(i==0){
+                count = false;
+                break;
+            }
+            else{
+                if(heights[i] < heights[j]){
+                    answer.insert(answer.begin()+0,j+1);
+                    count = true;
+                    break;
+                }
+            }
+        }
+        if(count == false)  answer.insert(answer.begin()+0,0);
+    }
+    
+    
+    return answer;
+}

@@ -1,0 +1,26 @@
+#include<string>
+#include <iostream>
+#include <stack>
+using namespace std;
+
+bool solution(string s)
+{
+    bool answer = true;
+    stack<char> a;
+    char temp;
+    for(int i=0; i<s.size();i++){
+        temp = s[i];
+        if(temp==')'){
+            if(a.empty()){
+                return false;
+            }
+            else
+                a.pop();
+        }
+        else if(temp=='(') a.push(temp);
+    }
+    
+    if(!a.empty()) answer = false;
+    
+    return answer;
+}

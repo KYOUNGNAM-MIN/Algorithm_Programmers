@@ -1,0 +1,22 @@
+#include <string>
+#include <vector>
+using namespace std;
+
+long long fibo(int n){
+    long answer = 0;
+    long a=0, b=1;
+    for(int i=0; i<n;i++){
+        if(i != 0){
+            answer = (a + b)%1234567;
+            a = b%1234567;
+            b = answer%1234567;
+        }
+    }
+    return answer;
+}
+
+int solution(int n) {
+    int answer = fibo(n);
+    
+    return answer;
+}

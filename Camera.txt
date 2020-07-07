@@ -1,0 +1,21 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int solution(vector<vector<int>> routes) {
+    int camera = 1;
+    sort(routes.begin(), routes.end());
+    //첫번째 차량의 진출 지점을 기준으로 겹치는 차량이 있는 지 확인
+    int cameraPos = routes[0][1];
+    //겹치는 차량이 있으면 그대로, 겹치지 않는 차량이 없으면 카메라 추가, 위치변경
+    for(int i=1; i<routes.size(); i++){
+        if(routes[i][1] <= cameraPos)
+            cameraPos = routes[i][1];
+        if(routes[i][0] > cameraPos){
+            camera++;
+            cameraPos = routes[i][1];
+        }
+    }
+    return camera;
+}

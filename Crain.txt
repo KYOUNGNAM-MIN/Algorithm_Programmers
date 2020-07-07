@@ -1,0 +1,27 @@
+#include <string>
+#include <vector>
+using namespace std;
+
+int solution(vector<vector<int>> board, vector<int> moves) {
+    int answer = 0;
+    vector<int> popMove;
+    
+    for(int i=0; i<moves.size(); i++){
+        int numCrain = moves[i] - 1;
+        for(int j=0; j<board.size(); j++){
+            if(board[j][numCrain] == 0) continue;
+            else{
+                if(!popMove.empty() && (popMove.back() == board[j][numCrain])){
+                    popMove.pop_back();
+                    answer+=2;
+                }
+                else{
+                    popMove.push_back(board[j][numCrain]);
+                }
+                board[j][numCrain] = 0;
+                break;
+            }
+        }
+    }
+    return answer;
+}

@@ -1,0 +1,35 @@
+#include <string>
+#include <vector>
+#include <queue>
+#include <algorithm>
+using namespace std;
+ 
+string maxDel = "D 1";
+string minDel = "D -1";
+ 
+deque<int> dq;
+ 
+vector<int> solution(vector<string> operations) {
+    int val = 0;
+    string num = "";
+    vector<int> answer(2);
+ 
+    for (string str : operations) {
+        if (str == maxDel) {
+            if (!dq.empty()) dq.pop_back();
+        }
+        else if (str == minDel) {
+            if (!dq.empty()) dq.pop_front();
+        }
+        else {
+            num = str.substr(2);
+            val = stoi(num);
+            dq.push_back(val);
+            sort(dq.begin(), dq.end());
+        }
+    }
+    answer[0] = dq.empty() ? 0 : dq.back();
+    answer[1] = dq.empty() ? 0 : dq.front();
+    
+    return answer;
+}

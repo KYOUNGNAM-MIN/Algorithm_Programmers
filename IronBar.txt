@@ -1,0 +1,24 @@
+#include <string>
+#include <vector>
+using namespace std;
+
+int solution(string arrangement) {
+    int answer = 0;
+    int new_bar = 0; int depth =0;
+    for(int i=1; i<arrangement.size();i++){
+        if(arrangement[i] == '('){
+            depth++;
+        }
+        else{
+            depth--;
+        }
+        if(arrangement[i-1] == '(' && arrangement[i] == ')' ){
+            answer += new_bar + depth + 1;
+            new_bar = 0;
+        }
+        else if(arrangement[i-1] == '(' && arrangement[i] == '(' ){
+            new_bar++;
+        }
+    }
+    return answer;
+}

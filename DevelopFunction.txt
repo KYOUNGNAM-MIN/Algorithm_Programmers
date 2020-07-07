@@ -1,0 +1,41 @@
+#include <string>
+#include <vector>
+#include <iostream>
+using namespace std;
+
+vector<int> solution(vector<int> progresses, vector<int> speeds) {
+    vector<int> answer;
+    vector<int> t;
+    for(int i=0; i<progresses.size(); i++){
+        if((100-progresses[i]) % speeds[i] == 0)
+            t.push_back((100-progresses[i]) / speeds[i]);
+        else
+            t.push_back((100-progresses[i]) / speeds[i] + 1);
+    }
+    int MaxNum = t[0];
+    int count = 1;
+    for(int i=1; i<t.size();i++){
+        if(i==t.size()-1){
+            if(MaxNum < t[i]){
+                answer.push_back(count);
+                answer.push_back(1);
+            }
+            else{
+                count++;
+                answer.push_back(count);
+            }
+        }
+        else{
+            if(MaxNum < t[i]){
+                answer.push_back(count);
+                MaxNum = t[i];
+                count = 1;
+            }
+            else{
+                count++;
+            }
+        }
+    }
+    
+    return answer;
+}

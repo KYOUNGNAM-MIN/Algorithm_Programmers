@@ -1,0 +1,32 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<vector<string>> AnswerList;
+
+void dfs(vector<vector<string>>& tickets, vector<pair<int,int>>& useCheck, string from, int count){
+    if(count == tickets.size()){
+        vector<string> answer;
+        vector<pair<int,int>> tempAnswer = useCheck;
+        sort(tempAnswer.begin(), tempAnswer.end());
+        for(auto a:tempAnswer)  answer.push_back(tickets[a.second][0]);
+        answer.push_back(tickets[tempAnswer[tempAnswer.size()-1].second][1]);
+        AnswerList.push_back(answer);
+        return;
+    }
+    for (int i = 0; i < tickets.size(); i++) {
+        if (useCheck[i].second == -1 && tickets[i][0] == from) {
+            useCheck[i] = { count, i };
+            dfs(tickets, useCheck, tickets[i][1], count + 1);
+            useCheck[i] = { 0, -1 };
+        }
+    }
+}
+
+vector<string> solution(vector<vector<string>> tickets) {
+    vector<pair<int,int>> useCheck(tickets.size(),{0,-1});
+    dfs(tickets,useCheck, "ICN", 0);
+    sort(AnswerList.begin(), AnswerList.end());
+    return AnswerList[0];
+}

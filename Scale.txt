@@ -1,0 +1,18 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<int> weight) {
+    int answer, sum = 0;
+    sort(weight.begin(), weight.end());
+    for(int i = 0; i < weight.size(); i++){
+        if (sum + 1 < weight[i])
+            break;
+        else
+            sum += weight[i];
+    }
+    answer = sum + 1;
+    return answer;
+}

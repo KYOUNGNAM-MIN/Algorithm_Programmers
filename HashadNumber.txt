@@ -1,0 +1,14 @@
+#include <string>
+#include <vector>
+using namespace std;
+
+bool solution(int x) {
+    string s = to_string(x);
+    int sum = 0;
+    for(int i=0; i<s.size(); i++){
+        sum += (int)(s[i]-'0');
+    }
+    bool answer = x % sum == 0  ? true : false;
+    
+    return answer;
+}

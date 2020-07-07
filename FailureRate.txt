@@ -1,0 +1,38 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+bool compare(pair<double,int> a, pair<double,int> b){
+    if(a.first == b.first)
+        return a.second < b.second;
+    return a.first > b.first;
+}
+
+vector<int> solution(int N, vector<int> stages) {
+    vector<int> answer;
+    vector<pair<double,int> > failRate;
+    int userSize = stages.size();
+    int user[501] = {0};
+    sort(stages.begin(), stages.end());
+    for(vector<int>::iterator iter = stages.begin(); iter != stages.end(); iter++){
+        user[*iter - 1]++;
+    }
+    
+    for(int i=0; i<N; i++){
+        if(user[i] == 0)
+            failRate.push_back(make_pair(0,i+1));
+        else{
+            failRate.push_back(make_pair((double)user[i]/userSize, i+1));
+            userSize -= user[i];
+        }
+    }
+    
+    sort(failRate.begin(), failRate.end(), compare);
+    
+    for(vector<pair<double,int> >::iterator iter = failRate.begin(); iter != failRate.end(); iter++){
+        answer.push_back(iter->second);
+    }
+    
+    return answer;
+}

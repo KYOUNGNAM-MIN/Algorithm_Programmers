@@ -1,0 +1,51 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int Parent[101];
+
+int FindParent(int x){
+    if(Parent[x] == x) return x;
+    else return Parent[x] = FindParent(Parent[x]);
+}
+
+bool SameParent(int x, int y){
+    int px = FindParent(x);
+    int py = FindParent(y);
+    if(px == py) return true;
+    else return false;
+}
+
+void UnionParent(int x, int y){
+    int px = FindParent(x);
+    int py = FindParent(y);
+    if(px != py){
+        Parent[py] = px;
+    }
+}
+
+bool compare(vector<int> x, vector<int> y){
+    return x[2] < y[2];
+}
+
+int solution(int n, vector<vector<int>> costs) {
+    sort(costs.begin(), costs.end(),compare);
+    
+    for(int i=0; i<n; i++){
+        Parent[i] = i;
+    }
+    
+    int count = 0;
+    int sum = 0;
+    for(int i=0; i< costs.size(); i++){
+        if(!SameParent(costs[i][0], costs[i][1])){
+            UnionParent(costs[i][0], costs[i][1]);
+            count++;
+            sum += costs[i][2];
+        }
+        if(count == n-1) break;
+    }
+    
+    return sum;
+}

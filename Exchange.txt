@@ -1,0 +1,21 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+long long d[100001];
+
+int solution(int n, vector<int> money) {
+    int answer = 0;
+    d[0] = 1;
+    for(int i=money[0]; i <=n; i+=money[0]){
+        d[i] = 1;
+    }
+    for(int i=1; i<money.size(); i++){
+        for(int j=0; j<=n; j++){
+            if(j>= money[i])
+                d[j] += d[j-money[i]] % 1000000007;
+        }
+    }
+    answer = d[n];
+    return answer;
+}

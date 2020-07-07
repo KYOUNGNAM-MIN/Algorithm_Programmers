@@ -1,0 +1,16 @@
+#include <iostream>
+using namespace std;
+long long array[81] = {0,4,6,};
+
+long long fivo(int N){
+    for(int i=3; i<=N; i++){
+        array[i] = array[i-1] + array[i-2];
+    }
+    return array[N];
+}
+long long solution(int N) {
+    long long answer = 0;
+    answer = fivo(N);
+    
+    return answer;
+}
